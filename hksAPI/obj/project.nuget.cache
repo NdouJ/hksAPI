@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "QggTYvf0d2c1KNaZ/18/zkRyAP6RgySSDsXjkLi3trtsga9RvMw15uO41r/EHWGFw6N4WO+ObEFySCZaaPmrKQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\jelena.ndou\\Downloads\\hksAPI\\hksAPI\\hksAPI.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\jelena.ndou\\.nuget\\packages\\microsoft.extensions.apidescription.server\\6.0.5\\microsoft.extensions.apidescription.server.6.0.5.nupkg.sha512",
+    "C:\\Users\\jelena.ndou\\.nuget\\packages\\microsoft.openapi\\1.2.3\\microsoft.openapi.1.2.3.nupkg.sha512",
+    "C:\\Users\\jelena.ndou\\.nuget\\packages\\swashbuckle.aspnetcore\\6.5.0\\swashbuckle.aspnetcore.6.5.0.nupkg.sha512",
+    "C:\\Users\\jelena.ndou\\.nuget\\packages\\swashbuckle.aspnetcore.swagger\\6.5.0\\swashbuckle.aspnetcore.swagger.6.5.0.nupkg.sha512",
+    "C:\\Users\\jelena.ndou\\.nuget\\packages\\swashbuckle.aspnetcore.swaggergen\\6.5.0\\swashbuckle.aspnetcore.swaggergen.6.5.0.nupkg.sha512",
+    "C:\\Users\\jelena.ndou\\.nuget\\packages\\swashbuckle.aspnetcore.swaggerui\\6.5.0\\swashbuckle.aspnetcore.swaggerui.6.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
