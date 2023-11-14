@@ -76,6 +76,7 @@ namespace hksAPI.Controllers
 
         private List<BreederPack> ExstractPage(string[] lines)
         {
+          
             var breederPacks = new List<BreederPack>();
             foreach (string line in lines)
             {
@@ -83,11 +84,15 @@ namespace hksAPI.Controllers
                 if (!line.StartsWith("POPIS") && !line.StartsWith("PASMINA") && !line.StartsWith("Referentica"))
                 {
                     string[] words = line.Split(' ');
-               
-                    foreach (string word in words)
+
+                    for  (int  i = 0;  i< words.Count(); i++)
                     {
-                        if (double.TryParse(word, out _))
+                        if (double.TryParse(words[i], out _))
                         {
+                            b.Pack.BirtDate = words[i];
+                            b.Pack.Male = int.Parse(words[i+1]);
+                            b.Pack.FMale = int.Parse(words[i+2]);
+                            b.Breeder.BreederInfo = string.Join(" ", words.Skip(i + 3));
                             break;
                         }
 
@@ -96,11 +101,17 @@ namespace hksAPI.Controllers
                             b.Pack.BreedName += " ";
                         }
 
-                        b.Pack.BreedName += word;
-                    
+                        b.Pack.BreedName += words[i];
+
+                      
+                    }
+
+                    if (!String.IsNullOrEmpty(b.Pack.BreedName))
+                    {
+                        breederPacks.Add(b);
+                    }
                 }
-                }
-                breederPacks.Add(b);
+               
             }
 
             return breederPacks;
