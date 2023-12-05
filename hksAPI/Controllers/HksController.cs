@@ -14,6 +14,8 @@ namespace hksAPI.Controllers
     public class HksController : ControllerBase
     {
         Breeder breeder;
+        List<BreederPack> breederPacks = new List<BreederPack>();
+       // const string url = "https://hks.hr/wp-content/uploads/2023/11/2023-11_06-LEGLA-1.pdf"; 
 
         public HksController()
         {
@@ -21,14 +23,14 @@ namespace hksAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetBreeders()
+        public IActionResult GetBreeders(string url )
         {
-            string localPdfPath = DownloadPdf("https://hks.hr/wp-content/uploads/2023/11/2023-11_06-LEGLA-1.pdf");
+            string localPdfPath = DownloadPdf(url);
             if (localPdfPath != null)
             {
                 PdfDocument pdfDocument = new PdfDocument(new PdfReader(localPdfPath));
                 ExtractTextFromPdf(pdfDocument);
-                return Ok(breeder);
+                return Ok(breederPacks);
             }
             else
             {
@@ -77,7 +79,7 @@ namespace hksAPI.Controllers
         private List<BreederPack> ExstractPage(string[] lines)
         {
           
-            var breederPacks = new List<BreederPack>();
+           // var breederPacks = new List<BreederPack>();
             foreach (string line in lines)
             {
                 BreederPack b = new BreederPack();

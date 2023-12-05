@@ -59,3 +59,4 @@ C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\PdfSharp.WPFonts.d
 C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\PdfSharp.dll
 C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\de\PdfSharp.Charting.resources.dll
 C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\de\PdfSharp.resources.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.sourcelink.json
