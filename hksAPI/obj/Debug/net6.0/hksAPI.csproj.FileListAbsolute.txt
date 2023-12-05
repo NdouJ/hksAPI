@@ -51,3 +51,12 @@ C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\itextsharp.dll
 C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\Microsoft.Extensions.DependencyModel.dll
 C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\Newtonsoft.Json.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\PdfSharp.Charting.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\PdfSharp.Quality.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\PdfSharp.Snippets.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\PdfSharp.System.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\PdfSharp.WPFonts.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\PdfSharp.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\de\PdfSharp.Charting.resources.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\de\PdfSharp.resources.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.sourcelink.json

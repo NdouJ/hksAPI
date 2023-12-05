@@ -14,6 +14,8 @@ namespace hksAPI.Controllers
     public class HksController : ControllerBase
     {
         Breeder breeder;
+        List<BreederPack> breederPacks = new List<BreederPack>();
+       // const string url = "https://hks.hr/wp-content/uploads/2023/11/2023-11_06-LEGLA-1.pdf"; 
 
         public HksController()
         {
@@ -21,14 +23,14 @@ namespace hksAPI.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetBreeders()
+        public IActionResult GetBreeders(string url )
         {
-            string localPdfPath = DownloadPdf("https://hks.hr/wp-content/uploads/2023/11/2023-11_06-LEGLA-1.pdf");
+            string localPdfPath = DownloadPdf(url);
             if (localPdfPath != null)
             {
                 PdfDocument pdfDocument = new PdfDocument(new PdfReader(localPdfPath));
                 ExtractTextFromPdf(pdfDocument);
-                return Ok(breeder);
+                return Ok(breederPacks);
             }
             else
             {
@@ -42,7 +44,6 @@ namespace hksAPI.Controllers
             {
                 using (WebClient client = new WebClient())
                 {
-                    // Get the file name from the URL and save the PDF locally in the "App_Data\dog" directory
                     string fileName = Path.GetFileName(pdfUrl);
                     string localDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "dog");
                     Directory.CreateDirectory(localDirectory); // Ensure the directory exists
@@ -55,9 +56,6 @@ namespace hksAPI.Controllers
             }
             catch (Exception ex)
             {
-                // Handle the exception or log it
-                // You can add code here to log or display the exception details
-                // For simplicity, we'll return null when the download fails
                 return null;
             }
         }
@@ -73,11 +71,52 @@ namespace hksAPI.Controllers
                 string pageText = PdfTextExtractor.GetTextFromPage(page, strategy);
                 extractedText.AppendLine(pageText);
             }
+            string[] lines = extractedText.ToString().Split('\n');
+            List<BreederPack> breederPacks = ExstractPage(lines);
+            string s = extractedText.ToString();
+        }
 
-            // Process the extracted text and populate the 'breeder' object
-            // Modify this part as needed based on the structure of the PDF
+        private List<BreederPack> ExstractPage(string[] lines)
+        {
+          
+           // var breederPacks = new List<BreederPack>();
+            foreach (string line in lines)
+            {
+                BreederPack b = new BreederPack();
+                if (!line.StartsWith("POPIS") && !line.StartsWith("PASMINA") && !line.StartsWith("Referentica"))
+                {
+                    string[] words = line.Split(' ');
 
-            // Example: breeder.Name = extractedText.ToString();
+                    for  (int  i = 0;  i< words.Count(); i++)
+                    {
+                        if (double.TryParse(words[i], out _))
+                        {
+                            b.Pack.BirtDate = words[i];
+                            b.Pack.Male = int.Parse(words[i+1]);
+                            b.Pack.FMale = int.Parse(words[i+2]);
+                            b.Breeder.BreederInfo = string.Join(" ", words.Skip(i + 3));
+                            break;
+                        }
+
+                        if (!string.IsNullOrEmpty(b.Pack.BreedName))
+                        {
+                            b.Pack.BreedName += " ";
+                        }
+
+                        b.Pack.BreedName += words[i];
+
+                      
+                    }
+
+                    if (!String.IsNullOrEmpty(b.Pack.BreedName))
+                    {
+                        breederPacks.Add(b);
+                    }
+                }
+               
+            }
+
+            return breederPacks;
         }
     }
 }
