@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("hksAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d9d915b4cd6c56c24ddf3425ef008a181183c631")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+279ec7e1f9d93e95ab00422e878c6eb171b731c8")]
 [assembly: System.Reflection.AssemblyProductAttribute("hksAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("hksAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
