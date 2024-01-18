@@ -60,3 +60,11 @@ C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\PdfSharp.dll
 C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\de\PdfSharp.Charting.resources.dll
 C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\de\PdfSharp.resources.dll
 C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.sourcelink.json
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Abstractions.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\Microsoft.IdentityModel.JsonWebTokens.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Logging.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\Microsoft.IdentityModel.Tokens.dll
+C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\System.IdentityModel.Tokens.Jwt.dll

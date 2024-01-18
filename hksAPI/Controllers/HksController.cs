@@ -2,6 +2,7 @@
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Parser;
 using iText.Kernel.Pdf.Canvas.Parser.Listener;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.IO;
 using System.Net;
@@ -22,7 +23,7 @@ namespace hksAPI.Controllers
         {
             breeder = new Breeder();
         }
-
+        [Authorize]
         [HttpGet("CheckOib")]
         public IActionResult CheckOib(string oib)
         {
