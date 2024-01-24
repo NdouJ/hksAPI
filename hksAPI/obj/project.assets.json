@@ -5814,19 +5814,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\jelena.ndou\\.nuget\\packages\\": {}
+    "C:\\Users\\Korisnik\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\jelena.ndou\\Downloads\\hksAPI\\hksAPI\\hksAPI.csproj",
+      "projectUniqueName": "C:\\hksAPI\\hksAPI\\hksAPI.csproj",
       "projectName": "hksAPI",
-      "projectPath": "C:\\Users\\jelena.ndou\\Downloads\\hksAPI\\hksAPI\\hksAPI.csproj",
-      "packagesPath": "C:\\Users\\jelena.ndou\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\jelena.ndou\\Downloads\\hksAPI\\hksAPI\\obj\\",
+      "projectPath": "C:\\hksAPI\\hksAPI\\hksAPI.csproj",
+      "packagesPath": "C:\\Users\\Korisnik\\.nuget\\packages\\",
+      "outputPath": "C:\\hksAPI\\hksAPI\\obj\\",
       "projectStyle": "PackageReference",
+      "fallbackFolders": [
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+      ],
       "configFilePaths": [
-        "C:\\Users\\jelena.ndou\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Korisnik\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -5834,6 +5839,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -5892,7 +5898,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.100\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   },
