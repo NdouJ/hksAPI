@@ -2,6 +2,7 @@ using hksAPI.Models;
 using iText.Kernel.Pdf;
 using iText.Kernel.Pdf.Canvas.Parser;
 using iText.Kernel.Pdf.Canvas.Parser.Listener;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
@@ -17,7 +18,7 @@ namespace hksAPI.Controllers
     public class HksController : ControllerBase
     {
         Breeder breeder;
-       static List<BreederPack> breederPacks = new List<BreederPack>();
+        static List<BreederPack> breederPacks = new List<BreederPack>();
         // const string url = "https://hks.hr/wp-content/uploads/2023/11/2023-11_06-LEGLA-1.pdf"; 
 
         public HksController()
@@ -61,19 +62,46 @@ namespace hksAPI.Controllers
 
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetBreeders(string url)
         {
             string localPdfPath = DownloadPdf(url);
-            if (localPdfPath != null)
+            try
             {
-                PdfDocument pdfDocument = new PdfDocument(new PdfReader(localPdfPath));
-                ExtractTextFromPdf(pdfDocument);
-                return Ok(breederPacks);
+                if (localPdfPath != null)
+                {
+                    using (PdfDocument pdfDocument = new PdfDocument(new PdfReader(localPdfPath)))
+                    {
+                        ExtractTextFromPdf(pdfDocument);
+                        return Ok(breederPacks);
+                    }
+                }
+                else
+                {
+                    return NotFound("Failed to download the PDF.");
+                }
             }
-            else
+            finally
             {
-                return NotFound("Failed to download the PDF.");
+                // Delete the file in the finally block
+                DeleteFile(localPdfPath);
             }
+        }
+
+        private void DeleteFile(string filePath)
+        {
+            //try
+            //{
+            if (System.IO.File.Exists(filePath)) // Use the full namespace to avoid conflicts
+            {
+                System.IO.File.Delete(filePath);
+            }
+            // }
+            //catch (Exception ex)
+            //{
+            // Handle or log any exceptions that may occur during file deletion
+            //    Console.WriteLine($"Error deleting file: {ex.Message}");
+            // }
         }
 
 
@@ -84,7 +112,7 @@ namespace hksAPI.Controllers
                 using (WebClient client = new WebClient())
                 {
                     string fileName = Path.GetFileName(pdfUrl);
-                    string localDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "App_Data", "dog");
+                    string localDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TempFiles"); // Change directory name
                     Directory.CreateDirectory(localDirectory); // Ensure the directory exists
 
                     string localPdfPath = Path.Combine(localDirectory, fileName);
