@@ -17,7 +17,7 @@ namespace hksAPI.Controllers
     public class HksController : ControllerBase
     {
         Breeder breeder;
-        List<BreederPack> breederPacks = new List<BreederPack>();
+       static List<BreederPack> breederPacks = new List<BreederPack>();
         // const string url = "https://hks.hr/wp-content/uploads/2023/11/2023-11_06-LEGLA-1.pdf"; 
 
         public HksController()
@@ -159,6 +159,18 @@ namespace hksAPI.Controllers
             }
 
             return breederPacks;
+        }
+
+
+        [HttpGet("GetBreeds")]
+        public IActionResult GetBreeds()
+        {
+            var uniqueBreeds = breederPacks
+                .Select(x => x.Pack.BreedName)
+                .Distinct()
+                .ToList();
+
+            return Ok(uniqueBreeds);
         }
     }
 }
