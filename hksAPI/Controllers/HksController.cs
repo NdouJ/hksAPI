@@ -62,7 +62,6 @@ namespace hksAPI.Controllers
 
 
         [HttpGet]
-        [Authorize]
         public IActionResult GetBreeders(string url)
         {
             string localPdfPath = DownloadPdf(url);
@@ -191,6 +190,7 @@ namespace hksAPI.Controllers
 
 
         [HttpGet("GetBreeds")]
+        [Authorize]
         public IActionResult GetBreeds()
         {
             var uniqueBreeds = breederPacks
