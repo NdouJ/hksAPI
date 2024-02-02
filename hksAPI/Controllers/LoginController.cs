@@ -44,7 +44,7 @@ namespace hksAPI.Controllers
                 CASE WHEN EXISTS (
                     SELECT 1
                     FROM [User]
-                    WHERE email = @ProvidedEmail AND passwordHash = @ProvidedPasswordHash
+                    WHERE username = @ProvidedEmail AND passwordHash = @ProvidedPasswordHash
                 ) THEN 1 ELSE 0 END AS AuthenticationResult;
         ";
 
