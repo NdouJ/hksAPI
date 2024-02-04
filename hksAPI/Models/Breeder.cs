@@ -7,10 +7,19 @@ namespace hksAPI.Models
     {
         public string BreederInfo { get; set; }
 
+        private string _breederName;
+        private string _breederContact;
+
+        public int IdBreeder { get; set; }
+
         public string BreederName
         {
             get
             {
+                if (_breederName!=null)
+                {
+                    return _breederName; 
+                }
                 if (!string.IsNullOrEmpty(BreederInfo))
                 {
                     string breederName = new string(BreederInfo.TakeWhile(c => !char.IsDigit(c)).ToArray()).Trim();
@@ -20,12 +29,22 @@ namespace hksAPI.Models
 
                 return "";
             }
+
+            set
+            {
+                _breederName = value;
+            }
+            
         }
 
         public string BreederContact
         {
             get
             {
+                if (_breederContact != null)
+                {
+                    return _breederContact; 
+                }
                 if (!string.IsNullOrEmpty(BreederInfo))
                 {
                     // Skip characters until the first digit is encountered
@@ -39,6 +58,10 @@ namespace hksAPI.Models
                 }
 
                 return "";
+            }
+            set
+            {
+                _breederContact = value;    
             }
         }
     }

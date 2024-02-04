@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using hksAPI.Data.Repositories;
+using hksAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
 
@@ -8,6 +10,12 @@ namespace hksAPI.Controllers
     [ApiController]
     public class BreederController : ControllerBase
     {
+
+        ICrudGeneric<Breeder> _breederRepository;
+        public BreederController(ICrudGeneric<Breeder> breederRepository)
+        {
+            _breederRepository = breederRepository; 
+        }
         [HttpGet("CheckOib")]
         public IActionResult CheckOib(string oib)
         {
@@ -40,5 +48,42 @@ namespace hksAPI.Controllers
 
             return isValid ? Ok("OIB is valid.") : BadRequest("Invalid OIB.");
         }
+
+
+        [HttpGet]
+        public IActionResult GetBreedersOfDog(string dog)
+        {
+            IEnumerable<Breeder> breeders = _breederRepository.GetAllByParametar(dog);
+
+            return Ok(breeders.ToList()); 
+        }
+
+        [HttpGet]
+        public IActionResult GetBreederbyName(string breederName)
+        {
+
+            Breeder breeder = _breederRepository.GetByName(breederName); 
+
+            return Ok(breeder);
+        }
+
+        [HttpPost]
+        public IActionResult UpdateBreeder(Breeder breederUpdate)
+        {
+
+         _breederRepository.Update(breederUpdate);
+
+            return Ok();
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteBreeder(int  id)
+        {
+
+            _breederRepository.Delete(id);
+
+            return Ok(); 
+        }
+
     }
 }
