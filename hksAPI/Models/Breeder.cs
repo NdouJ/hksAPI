@@ -1,16 +1,19 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Linq;
 
 namespace hksAPI.Models
 {
     public class Breeder
     {
+        [JsonIgnore]
         public string BreederInfo { get; set; }
 
         private string _breederName;
         private string _breederContact;
 
         public int IdBreeder { get; set; }
+        public string OIB { get; set; }
 
         public string BreederName
         {

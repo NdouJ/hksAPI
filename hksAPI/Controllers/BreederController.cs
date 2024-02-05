@@ -50,7 +50,7 @@ namespace hksAPI.Controllers
         }
 
 
-        [HttpGet]
+        [HttpGet("breeders-of-dog")]
         public IActionResult GetBreedersOfDog(string dog)
         {
             IEnumerable<Breeder> breeders = _breederRepository.GetAllByParametar(dog);
@@ -67,11 +67,19 @@ namespace hksAPI.Controllers
             return Ok(breeder);
         }
 
-        [HttpPost]
+        [HttpPost("updateBreeder")]
         public IActionResult UpdateBreeder(Breeder breederUpdate)
         {
 
          _breederRepository.Update(breederUpdate);
+
+            return Ok();
+        }
+        [HttpPost]
+        public IActionResult PostBreeder(Breeder breeder)
+        {
+
+            _breederRepository.Insert(breeder); 
 
             return Ok();
         }

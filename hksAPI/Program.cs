@@ -1,4 +1,5 @@
 using hksAPI.Data.Repositories;
+using hksAPI.Models;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -31,7 +32,7 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 builder.Services.AddControllers();
 builder.Services.AddAuthorization();
 
-builder.Services.AddScoped(typeof(ICrudGeneric<>), typeof(BreederRepository<>));
+builder.Services.AddScoped<ICrudGeneric<Breeder>, BreederRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
