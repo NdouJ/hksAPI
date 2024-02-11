@@ -39,27 +39,8 @@ namespace hksAPI.Controllers
 
         }
 
-        [HttpPost("saveUser")]
-        public IActionResult InsertUser([FromBody] LoginRequest loginRequest)
-        {
-            try
-            {
-             _loginRepository.Insert(loginRequest);
-
-            }
-            catch (Exception ex)
-            {
-
-                return BadRequest(ex.Message); 
-            }
-
-
-            return Ok(loginRequest.Username);
-        }
-
 
     }
-
 
 
 

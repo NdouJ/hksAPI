@@ -26,8 +26,7 @@ namespace hksAPI.Data.Repositories
 
                 string query = @"
             DELETE FROM Breeder
-            WHERE IdBreeder = @IdBreeder
-        ";
+            WHERE IdBreeder = @IdBreeder ";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

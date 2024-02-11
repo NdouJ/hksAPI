@@ -58,7 +58,6 @@ namespace hksAPI.Data.Repositories
 
             string providedPasswordHash = loginRequest.Password;
 
-            // Set up the SQL query with parameters
             string sqlQuery = @"
             DECLARE @ProvidedEmail NVARCHAR(255) = @Email;
             DECLARE @ProvidedPasswordHash NVARCHAR(255) = @PasswordHash;
@@ -68,8 +67,7 @@ namespace hksAPI.Data.Repositories
                     SELECT 1
                     FROM [User]
                     WHERE username = @ProvidedEmail AND passwordHash = @ProvidedPasswordHash
-                ) THEN 1 ELSE 0 END AS AuthenticationResult;
-        ";
+                ) THEN 1 ELSE 0 END AS AuthenticationResult;";
 
             // Create a SqlConnection and a SqlCommand
             using (SqlConnection connection = new SqlConnection(_connectionString))
