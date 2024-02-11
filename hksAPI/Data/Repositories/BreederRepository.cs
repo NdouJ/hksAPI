@@ -52,8 +52,7 @@ namespace hksAPI.Data.Repositories
             FROM Breeder b
             INNER JOIN pack p ON b.IdBreeder = p.BreederID
             LEFT JOIN Dog d ON d.idDog = p.BreedNameID
-            WHERE UPPER(TRIM(d.BreedName)) = UPPER(TRIM(@BreedName))
-        ";
+            WHERE UPPER(TRIM(d.BreedName)) = UPPER(TRIM(@BreedName))";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {

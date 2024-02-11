@@ -33,6 +33,7 @@ namespace hksAPI.Controllers
             string connectionString = $"Data Source={serverName};Initial Catalog={databaseName};Integrated Security=True;TrustServerCertificate=True;";
 
             string providedEmail = loginRequest.Username;
+
             string providedPasswordHash = loginRequest.Password;
 
             // Set up the SQL query with parameters
