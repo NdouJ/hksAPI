@@ -14,6 +14,12 @@ namespace hksAPI.Data.Repositories
             _connectionString = configuration.GetConnectionString("Local");
 
         }
+
+        public string CheckEntity(Purchase entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(int id)
         {
             throw new NotImplementedException();

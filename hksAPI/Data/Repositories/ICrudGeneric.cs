@@ -11,5 +11,6 @@ namespace hksAPI.Data.Repositories
         void Insert(T entity);
         void Update(T entity);
         void Delete(int id);
+    string CheckEntity(T entity);
     }
 }

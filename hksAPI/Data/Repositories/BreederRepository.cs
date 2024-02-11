@@ -13,6 +13,11 @@ namespace hksAPI.Data.Repositories
             _connectionString = configuration.GetConnectionString("Local");
         }
 
+        public string CheckEntity(Breeder entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(int id)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
