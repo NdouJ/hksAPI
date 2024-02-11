@@ -13,6 +13,11 @@ namespace hksAPI.Data.Repositories
             _connectionString = configuration.GetConnectionString("Local");
         }
 
+        public string CheckEntity(Breeder entity)
+        {
+            throw new NotImplementedException();
+        }
+
         public void Delete(int id)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
@@ -21,8 +26,7 @@ namespace hksAPI.Data.Repositories
 
                 string query = @"
             DELETE FROM Breeder
-            WHERE IdBreeder = @IdBreeder
-        ";
+            WHERE IdBreeder = @IdBreeder ";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
@@ -52,8 +56,7 @@ namespace hksAPI.Data.Repositories
             FROM Breeder b
             INNER JOIN pack p ON b.IdBreeder = p.BreederID
             LEFT JOIN Dog d ON d.idDog = p.BreedNameID
-            WHERE UPPER(TRIM(d.BreedName)) = UPPER(TRIM(@BreedName))
-        ";
+            WHERE UPPER(TRIM(d.BreedName)) = UPPER(TRIM(@BreedName))";
 
                 using (SqlCommand command = new SqlCommand(query, connection))
                 {
