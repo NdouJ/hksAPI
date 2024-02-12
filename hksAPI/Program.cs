@@ -38,6 +38,7 @@ builder.Services.AddScoped<ICrudGeneric<Dog>, DogRepository>();
 builder.Services.AddScoped<ICrudGeneric<Purchase>, PurchaseRepository>();
 builder.Services.AddScoped<ICrudGeneric<LoginRequest>, LoginRepository>();
 builder.Services.AddScoped<ICrudGeneric<User>, UserRepository>();
+builder.Services.AddScoped<ICrudGeneric<Seller>, SellerRepository>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
