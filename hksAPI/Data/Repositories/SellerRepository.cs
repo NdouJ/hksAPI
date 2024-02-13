@@ -1,4 +1,6 @@
 ﻿using hksAPI.Models;
+using Microsoft.Data.SqlClient;
+
 
 namespace hksAPI.Data.Repositories
 {
@@ -18,12 +20,38 @@ namespace hksAPI.Data.Repositories
 
         public void Delete(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "DELETE FROM seller WHERE idSeller = @Id";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Id", id);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
 
         public IEnumerable<Seller> GetAll()
         {
-            throw new NotImplementedException();
+            List<Seller> sellers = new List<Seller>();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM seller";
+                SqlCommand command = new SqlCommand(query, connection);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                while (reader.Read())
+                {
+                    sellers.Add(new Seller
+                    {
+                        IdSeller = Convert.ToInt32(reader["idSeller"]),
+                        BreederName = reader["breeder_name"].ToString(),
+                        ContactInfo = reader["contact_info"].ToString(),
+                        OIB = reader["OIB"].ToString()
+                    });
+                }
+                reader.Close();
+            }
+            return sellers;
         }
 
         public IEnumerable<Seller> GetAllByParametar(string parametar)
@@ -33,7 +61,25 @@ namespace hksAPI.Data.Repositories
 
         public Seller GetById(int id)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "SELECT * FROM seller WHERE idSeller = @Id";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Id", id);
+                connection.Open();
+                SqlDataReader reader = command.ExecuteReader();
+                if (reader.Read())
+                {
+                    return new Seller
+                    {
+                        IdSeller = Convert.ToInt32(reader["idSeller"]),
+                        BreederName = reader["breeder_name"].ToString(),
+                        ContactInfo = reader["contact_info"].ToString(),
+                        OIB = reader["OIB"].ToString()
+                    };
+                }
+                return null;
+            }
         }
 
         public Seller GetByName(string name)
@@ -43,12 +89,31 @@ namespace hksAPI.Data.Repositories
 
         public void Insert(Seller entity)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "INSERT INTO seller (breeder_name, contact_info, OIB) VALUES (@BreederName, @ContactInfo, @OIB)";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@BreederName", entity.BreederName);
+                command.Parameters.AddWithValue("@ContactInfo", entity.ContactInfo);
+                command.Parameters.AddWithValue("@OIB", entity.OIB);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
 
         public void Update(Seller entity)
         {
-            throw new NotImplementedException();
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                string query = "UPDATE seller SET breeder_name = @BreederName, contact_info = @ContactInfo, OIB = @OIB WHERE idSeller = @Id";
+                SqlCommand command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@BreederName", entity.BreederName);
+                command.Parameters.AddWithValue("@ContactInfo", entity.ContactInfo);
+                command.Parameters.AddWithValue("@OIB", entity.OIB);
+                command.Parameters.AddWithValue("@Id", entity.IdSeller);
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
         }
     }
 }
