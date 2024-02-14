@@ -10,28 +10,65 @@ namespace hksAPI.Controllers
     public class PurchaseController : ControllerBase
     {
         ICrudGeneric<Purchase> _purchaseRepository;
+
         public PurchaseController(ICrudGeneric<Purchase> purchaseRepository)
         {
             _purchaseRepository = purchaseRepository;
         }
 
         [HttpGet("get-all-purchase")]
-        public IEnumerable<Purchase> Get()
+        public IActionResult GetAllPurchases()
         {
-            return _purchaseRepository.GetAll();
+            try
+            {
+                var purchases = _purchaseRepository.GetAll();
+                return Ok(purchases); // Return 200 OK with the list of purchases
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         [HttpGet("get-all-purchase-of-a-user")]
-        public IEnumerable<Purchase> GetAllFromUser( string id)
+        public IActionResult GetAllPurchasesFromUser(string id)
         {
-            return _purchaseRepository.GetAllByParametar(id);
-        }
-        [HttpPost]
-        public IActionResult Post([FromBody] Purchase value)
-        {
-            _purchaseRepository.Insert(value);
-            return CreatedAtAction(nameof(Get), new { id = value.IdPack }, value);
+            try
+            {
+                var purchases = _purchaseRepository.GetAllByParametar(id);
 
+                if (purchases == null || !purchases.Any())
+                {
+                    return NotFound(); 
+                }
+                return Ok(purchases); 
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
+
+        [HttpPost]
+        public IActionResult CreatePurchase([FromBody] Purchase value)
+        {
+            try
+            {
+                if (value == null)
+                {
+                    return BadRequest(); // Return 400 Bad Request if the request body is null
+                }
+
+                _purchaseRepository.Insert(value);
+
+                
+                return StatusCode(201);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
     }
 }

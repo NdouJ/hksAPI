@@ -1,6 +1,5 @@
 ﻿using hksAPI.Data.Repositories;
 using hksAPI.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace hksAPI.Controllers
@@ -9,67 +8,71 @@ namespace hksAPI.Controllers
     [ApiController]
     public class UserController : ControllerBase
     {
-        ICrudGeneric<User> _userRepository;
+        private readonly ICrudGeneric<User> _userRepository;
+
         public UserController(ICrudGeneric<User> userRepository)
         {
             _userRepository = userRepository;
         }
 
-
         [HttpPost]
-        public IActionResult SaveUser([FromBody] User user) {
-
+        public IActionResult SaveUser([FromBody] User user)
+        {
             try
             {
                 _userRepository.Insert(user);
+                return Ok();
             }
             catch (Exception ex)
             {
-
-                return BadRequest(ex.Message); 
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
-
-
-            return Ok(); 
         }
-
 
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteUser(int id)
         {
-         
-            _userRepository.Delete(id);
-            return NoContent();
+            try
+            {
+                _userRepository.Delete(id);
+                return NoContent();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
-
-
 
         [HttpPost("update-user")]
         public IActionResult UpdateUser([FromBody] User user)
         {
-
             try
             {
                 _userRepository.Update(user);
+                return Ok();
             }
             catch (Exception ex)
             {
-
-                return BadRequest(ex.Message);
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
-
-
-            return Ok();
         }
+
         [HttpGet("{id}")]
-        public ActionResult<User> Get(int id)
+        public IActionResult GetUserById(int id)
         {
-            var user = _userRepository.GetById(id);
-            if (user == null)
+            try
             {
-                return NotFound();
+                var user = _userRepository.GetById(id);
+                if (user == null)
+                {
+                    return NotFound("User not found");
+                }
+                return Ok(user);
             }
-            return user;
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
     }
 }

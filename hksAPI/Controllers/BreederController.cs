@@ -21,61 +21,97 @@ namespace hksAPI.Controllers
         [HttpGet("check-oib")]
         public IActionResult CheckOib(string OIB)
         {
-            OIBService oIBService = new OIBService();
-            string res = oIBService.CheckOib(OIB);
-
-            if (res.Contains("valid"))
+            try
             {
-                return Ok(res);
+                OIBService oIBService = new OIBService();
+                string res = oIBService.CheckOib(OIB);
+
+                if (res.Contains("valid"))
+                {
+                    return Ok(res);
+                }
+                else
+                {
+                    return BadRequest(res);
+                }
             }
-
-            else
+            catch (Exception ex)
             {
-                return BadRequest(res); 
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
         [HttpGet("breeders-of-dog")]
         public IActionResult GetBreedersOfDog(string dog)
         {
-            IEnumerable<Breeder> breeders = _breederRepository.GetAllByParametar(dog);
-
-            return Ok(breeders.ToList()); 
+            try
+            {
+                IEnumerable<Breeder> breeders = _breederRepository.GetAllByParametar(dog);
+                return Ok(breeders.ToList());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         [HttpGet]
         public IActionResult GetBreederbyName(string breederName)
         {
-
-            Breeder breeder = _breederRepository.GetByName(breederName); 
-
-            return Ok(breeder);
+            try
+            {
+                Breeder breeder = _breederRepository.GetByName(breederName);
+                if (breeder == null)
+                {
+                    return NotFound("Breeder not found");
+                }
+                return Ok(breeder);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         [HttpPost("updateBreeder")]
         public IActionResult UpdateBreeder(Breeder breederUpdate)
         {
-
-         _breederRepository.Update(breederUpdate);
-
-            return Ok();
+            try
+            {
+                _breederRepository.Update(breederUpdate);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
         [HttpPost]
         public IActionResult PostBreeder(Breeder breeder)
         {
-
-            _breederRepository.Insert(breeder); 
-
-            return Ok();
+            try
+            {
+                _breederRepository.Insert(breeder);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         [HttpDelete]
         public IActionResult DeleteBreeder(int  id)
         {
-
-            _breederRepository.Delete(id);
-
-            return Ok(); 
+            try
+            {
+                _breederRepository.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
     }

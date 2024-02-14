@@ -2,6 +2,7 @@
 using hksAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using System;
 
 namespace hksAPI.Controllers
 {
@@ -9,68 +10,95 @@ namespace hksAPI.Controllers
     [ApiController]
     public class SellerController : ControllerBase
     {
-        ICrudGeneric<Seller> _sellerRepository;
+        private readonly ICrudGeneric<Seller> _sellerRepository;
+
         public SellerController(ICrudGeneric<Seller> sellerRepository)
         {
             _sellerRepository = sellerRepository;
         }
 
-        [HttpGet]
-        public IActionResult GetSellerbyId(int id)
+        [HttpGet("{id}")]
+        public IActionResult GetSellerById(int id)
         {
-
-            Seller seller = _sellerRepository.GetById(id);
-
-            return Ok(seller);
+            try
+            {
+                Seller seller = _sellerRepository.GetById(id);
+                if (seller == null)
+                {
+                    return NotFound("Seller not found");
+                }
+                return Ok(seller);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
         [HttpGet("get-all")]
-        public IActionResult GetAll()
+        public IActionResult GetAllSellers()
         {
-
-
-
-            return Ok(_sellerRepository.GetAll());
+            try
+            {
+                return Ok(_sellerRepository.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
+
         [HttpPost("updateSeller")]
-        public IActionResult UpdateSellee(Seller sellerUpdate)
+        public IActionResult UpdateSeller(Seller sellerUpdate)
         {
-
-
-
-            return Ok();
+            try
+            {
+                _sellerRepository.Update(sellerUpdate);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
+
         [HttpPost]
         public IActionResult PostSeller(Seller seller)
         {
-
             try
             {
                 _sellerRepository.Insert(seller);
-
+                return Ok();
             }
             catch (SqlException ex)
             {
                 if (ex.Number == 547) // Foreign key violation error number
                 {
-                    return BadRequest("Seller must be registrated as a breeder with HKS");
+                    return BadRequest("Seller must be registered as a breeder with HKS");
                 }
                 else
                 {
-
+                    return StatusCode(500, ex.Message);
                 }
             }
-            return Ok();
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
 
-        [HttpDelete]
+        [HttpDelete("{id}")]
         public IActionResult DeleteSeller(int id)
         {
-
-            _sellerRepository.Delete(id);
-
-            return Ok();
+            try
+            {
+                _sellerRepository.Delete(id);
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ex.Message);
+            }
         }
-
     }
 }

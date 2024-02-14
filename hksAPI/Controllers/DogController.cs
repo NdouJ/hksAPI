@@ -14,62 +14,118 @@ namespace hksAPI.Controllers
             _dogRepository = dogRepository;
         }
 
-        [Authorize]
+       // [Authorize]
         [HttpGet("get-all-dogs")]
-        public IEnumerable<Dog> Get()
+        public IActionResult Get()
         {
-            return _dogRepository.GetAll();
+            try
+            {
+                return Ok( _dogRepository.GetAll());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+           
         }
 
         [HttpGet("get-by-name")]
-        public ActionResult<Dog> Get(string name )
+        public IActionResult Get(string name )
         {
-            return _dogRepository.GetByName(name); 
+            try
+            {
+                var response = _dogRepository.GetByName(name);
+                if (response==null)
+                {
+                    return NotFound();
+                }
+                return  Ok(response);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+            
         }
 
         [HttpGet("{id}")]
-        public ActionResult<Dog> Get(int id)
+        public IActionResult Get(int id)
         {
-            var review = _dogRepository.GetById(id);
-            if (review == null)
+
+            try
             {
-                return NotFound();
+                var review = _dogRepository.GetById(id);
+                if (review == null)
+                {
+                    return NotFound();
+                }
+                return Ok(review);
             }
-            return review;
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }  
+
         }
 
         [HttpPost]
         public IActionResult Post([FromBody] Dog value)
         {
-            _dogRepository.Insert(value);
-            return CreatedAtAction(nameof(Get), new { id = value.IdDog }, value);
+
+            try
+            {
+                _dogRepository.Insert(value);
+                return CreatedAtAction(nameof(Get), new { id = value.IdDog }, value);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+     
 
         }
 
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Dog value)
-        {
-            var existingDog = _dogRepository.GetById(id);
-            if (existingDog == null)
+        {       
+            try
             {
-                return NotFound();
+                var existingDog = _dogRepository.GetById(id);
+                if (existingDog == null)
+                {
+                    return NotFound();
+                }
+
+                _dogRepository.Update(value);
+                return StatusCode(204);
             }
-           
-            _dogRepository.Update(value);
-            return NoContent();
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
         }
 
         // DELETE api/<UserReviewController>/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
-            var review = _dogRepository.GetById(id);
-            if (review == null)
+       
+            try
             {
-                return NotFound();
+                var review = _dogRepository.GetById(id);
+                if (review == null)
+                {
+                    return NotFound();
+                }
+                _dogRepository.Delete(id);
+                return NoContent();
             }
-            _dogRepository.Delete(id);
-            return NoContent();
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
         }
     }
 }

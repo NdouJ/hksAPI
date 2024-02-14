@@ -1,8 +1,9 @@
 ﻿using hksAPI.Data.Repositories;
 using hksAPI.Models;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-
-// For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+using System;
+using System.Collections.Generic;
 
 namespace hksAPI.Controllers
 {
@@ -10,67 +11,96 @@ namespace hksAPI.Controllers
     [ApiController]
     public class UserReviewController : ControllerBase
     {
+        private readonly ICrudGeneric<UserReview> _userReviewRepository;
 
-        ICrudGeneric<UserReview> _userReviewRepository;
         public UserReviewController(ICrudGeneric<UserReview> userReviewRepository)
         {
             _userReviewRepository = userReviewRepository;
         }
 
         [HttpGet("get-all-review")]
-        public IEnumerable<UserReview> Get()
+        public IActionResult GetAllReviews()
         {
-            return _userReviewRepository.GetAll();
+            try
+            {
+                var reviews = _userReviewRepository.GetAll();
+                return Ok(reviews);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
- 
-
-        // GET api/<UserReviewController>/5
         [HttpGet("{id}")]
-        public ActionResult<UserReview> Get(int id)
+        public IActionResult GetReviewById(int id)
         {
-            var review = _userReviewRepository.GetById(id);
-            if (review == null)
+            try
             {
-                return NotFound();
+                var review = _userReviewRepository.GetById(id);
+                if (review == null)
+                {
+                    return NotFound();
+                }
+                return Ok(review);
             }
-            return review;
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
-        // POST api/<UserReviewController>
         [HttpPost]
-        public IActionResult Post([FromBody] UserReview value)
+        public IActionResult CreateReview([FromBody] UserReview value)
         {
-            _userReviewRepository.Insert(value);
-            return CreatedAtAction(nameof(Get), new { id = value.IdUserReview }, value);
-
+            try
+            {
+                _userReviewRepository.Insert(value);
+                return CreatedAtAction(nameof(GetReviewById), new { id = value.IdUserReview }, value);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
-        // PUT api/<UserReviewController>/5
         [HttpPut("{id}")]
-        public IActionResult Put(int id, [FromBody] UserReview value)
+        public IActionResult UpdateReview(int id, [FromBody] UserReview value)
         {
-            var existingReview = _userReviewRepository.GetById(id);
-            if (existingReview == null)
+            try
             {
-                return NotFound();
+                var existingReview = _userReviewRepository.GetById(id);
+                if (existingReview == null)
+                {
+                    return NotFound();
+                }
+                value.IdUserReview = id;
+                _userReviewRepository.Update(value);
+                return NoContent();
             }
-            value.IdUserReview = id;
-            _userReviewRepository.Update(value);
-            return NoContent();
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
-        // DELETE api/<UserReviewController>/5
         [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
+        public IActionResult DeleteReview(int id)
         {
-            var review = _userReviewRepository.GetById(id);
-            if (review == null)
+            try
             {
-                return NotFound();
+                var review = _userReviewRepository.GetById(id);
+                if (review == null)
+                {
+                    return NotFound();
+                }
+                _userReviewRepository.Delete(id);
+                return NoContent();
             }
-            _userReviewRepository.Delete(id);
-            return NoContent();
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
     }
 }
