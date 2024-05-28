@@ -1,5 +1,7 @@
 ﻿using hksAPI.Data.Repositories;
 using hksAPI.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace hksAPI.Controllers
@@ -12,7 +14,7 @@ namespace hksAPI.Controllers
             _dogRepository = dogRepository;
         }
 
-       // [Authorize]
+        [Authorize]
         [HttpGet("get-all-dogs")]
         public IActionResult Get()
         {
