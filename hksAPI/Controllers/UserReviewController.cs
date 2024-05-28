@@ -1,9 +1,6 @@
 ﻿using hksAPI.Data.Repositories;
 using hksAPI.Models;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 
 namespace hksAPI.Controllers
 {
