@@ -22,7 +22,7 @@ namespace hksAPI.Data.Repositories
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "DELETE FROM seller WHERE idSeller = @Id";
+                string query = "DELETE FROM Seller WHERE idSeller = @Id";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Id", id);
                 connection.Open();
@@ -35,7 +35,7 @@ namespace hksAPI.Data.Repositories
             List<Seller> sellers = new List<Seller>();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM seller";
+                string query = "SELECT * FROM Seller";
                 SqlCommand command = new SqlCommand(query, connection);
                 connection.Open();
                 SqlDataReader reader = command.ExecuteReader();
@@ -63,7 +63,7 @@ namespace hksAPI.Data.Repositories
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "SELECT * FROM seller WHERE idSeller = @Id";
+                string query = "SELECT * FROM Seller WHERE idSeller = @Id";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Id", id);
                 connection.Open();
@@ -91,7 +91,7 @@ namespace hksAPI.Data.Repositories
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "INSERT INTO seller (breeder_name, contact_info, OIB) VALUES (@BreederName, @ContactInfo, @OIB)";
+                string query = "INSERT INTO Seller (breeder_name, contact_info, OIB) VALUES (@BreederName, @ContactInfo, @OIB)";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@BreederName", entity.BreederName);
                 command.Parameters.AddWithValue("@ContactInfo", entity.ContactInfo);
@@ -105,7 +105,7 @@ namespace hksAPI.Data.Repositories
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "UPDATE seller SET breeder_name = @BreederName, contact_info = @ContactInfo, OIB = @OIB WHERE idSeller = @Id";
+                string query = "UPDATE Seller SET breeder_name = @BreederName, contact_info = @ContactInfo, OIB = @OIB WHERE idSeller = @Id";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@BreederName", entity.BreederName);
                 command.Parameters.AddWithValue("@ContactInfo", entity.ContactInfo);

@@ -17,14 +17,15 @@ namespace hksAPI.Controllers
     {
         Breeder breeder;
         static List<BreederPack> breederPacks = new List<BreederPack>();
+        private readonly string _connectionString;
         // const string url = "https://hks.hr/wp-content/uploads/2023/11/2023-11_06-LEGLA-1.pdf"; 
 
-        public HksController()
+        public HksController(IConfiguration configuration)
         {
             breeder = new Breeder();
+            _connectionString = configuration.GetConnectionString("Local");
+
         }
-
-
 
 
         [HttpGet]
@@ -39,10 +40,9 @@ namespace hksAPI.Controllers
                     using (PdfDocument pdfDocument = new PdfDocument(new PdfReader(localPdfPath)))
                     {
                         ExtractTextFromPdf(pdfDocument);
- 
-                            SaveBreedersToDatabase(breederPacks);
 
-                    
+                        SaveBreedersToDatabase(breederPacks);
+
                         return Ok(breederPacks);
                     }
                 }
@@ -60,26 +60,25 @@ namespace hksAPI.Controllers
 
         private void SaveBreedersToDatabase(List<BreederPack> breederPacks)
         {
-            string serverName = "DESKTOP-N1K2Q5F\\SQLEXPRESS2023";
-            string databaseName = "PawProtector";
-            string connectionString = $"Data Source={serverName};Initial Catalog={databaseName};Integrated Security=True;TrustServerCertificate=True;";
 
-            using (SqlConnection connection = new SqlConnection(connectionString))
+            using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();
                 var uniqueBreeds = breederPacks
-                     .Select(x => x.Pack.BreedName)
+                     .Select(x => x.Pack.BreedName.ToUpper().Replace('Č', 'C').Replace('Ć', 'C'))
                      .Distinct()
                      .ToList();
+
                 CheckAndSaveDogBreeds(connection, uniqueBreeds);
+
+
 
                 foreach (var breederPack in breederPacks)
                 {
                     SaveBreeder(connection, breederPack.Breeder);
-                 
-                    CheckAndSavePack(connection, breederPack);               
+                    CheckAndSavePack(connection, breederPack);
                 }
-               
+
             }
 
         }
@@ -158,7 +157,7 @@ namespace hksAPI.Controllers
 
             using (SqlCommand command = new SqlCommand(query, connection))
             {
-                command.Parameters.AddWithValue("@BreedName", breedName.ToUpper().Trim());
+                command.Parameters.AddWithValue("@BreedName", breedName.ToUpper().Trim().Replace('Č', 'C').Replace('Ć', 'C').Replace('Đ', 'D'));
 
                 object result = command.ExecuteScalar();
 
@@ -168,9 +167,8 @@ namespace hksAPI.Controllers
                 }
                 else
                 {
-                    // Handle the case where the breed name is not found
-                    // You might throw an exception or return a specific value depending on your use case
-                    throw new InvalidOperationException("Breed not found in the database.");
+                    
+                    throw new InvalidOperationException($@"Breed not found in the database-{breedName.ToUpper().Trim().Replace('Č', 'C').Replace('Ć', 'C')}");
                 }
             }
         }
@@ -206,15 +204,15 @@ namespace hksAPI.Controllers
             }
         }
 
-    
 
-    static void InsertDog(SqlConnection connection, string breedName, int avgWeightFemale, int avgWeightMale, string description, string image)
+
+        static void InsertDog(SqlConnection connection, string breedName, int avgWeightFemale, int avgWeightMale, string description, string image)
         {
             string insertQuery = "INSERT INTO Dog (BreedName, avgWeightFemale, avgWeightMale, description, image) VALUES (@BreedName, @AvgWeightFemale, @AvgWeightMale, @Description, @Image)";
 
             using (SqlCommand command = new SqlCommand(insertQuery, connection))
             {
-                command.Parameters.AddWithValue("@BreedName", breedName.ToUpper());
+                command.Parameters.AddWithValue("@BreedName", breedName.ToUpper().Trim().Replace('Đ','D'));
                 command.Parameters.AddWithValue("@AvgWeightFemale", avgWeightFemale);
                 command.Parameters.AddWithValue("@AvgWeightMale", avgWeightMale);
                 command.Parameters.AddWithValue("@Description", description);
@@ -229,12 +227,23 @@ namespace hksAPI.Controllers
 
             if (!BreederExist(connection, breeder.BreederName.ToUpper()))
             {
-                InsertBreeder(connection, breeder);
+
+                try
+                {
+                    InsertBreeder(connection, breeder);
+                }
+                catch (Exception)
+                {
+
+                }
+
             }
         }
 
         private bool BreederExist(SqlConnection connection, string breederName)
         {
+            
+
             string query = "SELECT COUNT(*) FROM Breeder WHERE TRIM(UPPER(BreederName))= TRIM(UPPER(@BreederName))";
 
             using (SqlCommand command = new SqlCommand(query, connection))
@@ -248,7 +257,7 @@ namespace hksAPI.Controllers
 
         private void InsertBreeder(SqlConnection connection, Breeder breeder)
         {
-
+           
             string insertQuery = "INSERT INTO Breeder (BreederName, BreederContact) VALUES (@BreederName, @BreederContact)";
 
             using (SqlCommand command = new SqlCommand(insertQuery, connection))
@@ -285,7 +294,7 @@ namespace hksAPI.Controllers
                 {
                     string fileName = Path.GetFileName(pdfUrl);
                     string localDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "TempFiles"); // Change directory name
-                    Directory.CreateDirectory(localDirectory); // Ensure the directory exists
+                    Directory.CreateDirectory(localDirectory);
 
                     string localPdfPath = Path.Combine(localDirectory, fileName);
 
@@ -293,9 +302,14 @@ namespace hksAPI.Controllers
                     return localPdfPath;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                return null;
+                //string assetsDirectory = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets");
+                //string fallbackPdfPath = Path.Combine(assetsDirectory, "legla.pdf");
+                string fallbackPdfPath = @"C:\hksAPI\hksAPI\Assets2\legla.pdf";
+
+                return fallbackPdfPath;
+
             }
         }
 

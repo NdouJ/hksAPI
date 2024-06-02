@@ -19,15 +19,16 @@ namespace hksAPI.Models
         {
             get
             {
-                if (_breederName!=null)
+                if (_breederName != null)
                 {
-                    return _breederName; 
+                    return _breederName;
                 }
                 if (!string.IsNullOrEmpty(BreederInfo))
                 {
                     string breederName = new string(BreederInfo.TakeWhile(c => !char.IsDigit(c)).ToArray()).Trim();
+                    _breederName = breederName.ToUpper().Replace('Č', 'C').Replace('Ć', 'C').Replace('Đ', 'D').Replace('Ž', 'Z');
 
-                    return breederName;
+                    return _breederName;
                 }
 
                 return "";
@@ -35,9 +36,9 @@ namespace hksAPI.Models
 
             set
             {
-                _breederName = value;
+                _breederName = value.ToUpper().Replace('Č', 'C').Replace('Ć', 'C').Replace('Đ','D').Replace('Ž','Z'); 
             }
-            
+
         }
 
         public string BreederContact
@@ -46,7 +47,7 @@ namespace hksAPI.Models
             {
                 if (_breederContact != null)
                 {
-                    return _breederContact; 
+                    return _breederContact;
                 }
                 if (!string.IsNullOrEmpty(BreederInfo))
                 {
@@ -64,7 +65,7 @@ namespace hksAPI.Models
             }
             set
             {
-                _breederContact = value;    
+                _breederContact = value;
             }
         }
     }
