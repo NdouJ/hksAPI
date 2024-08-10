@@ -1,4 +1,5 @@
 ﻿using hksAPI.Models;
+using hksAPI.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace hksAPI.Data.Repositories
 {
-    public class LoginRepository : ICrudGeneric<LoginRequest>
+    public class LoginRepository : ICrudGeneric<LoginRequest> 
     {
         private readonly string _connectionString;
         private IConfiguration _config;
@@ -107,5 +108,8 @@ namespace hksAPI.Data.Repositories
         }
 
 
+
+           
+
     }
-    }
+}

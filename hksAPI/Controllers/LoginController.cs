@@ -1,5 +1,7 @@
 ﻿using hksAPI.Data.Repositories;
+using hksAPI.Interfaces;
 using hksAPI.Models;
+using hksAPI.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
@@ -14,12 +16,14 @@ namespace hksAPI.Controllers
     {
 
         ICrudGeneric<LoginRequest> _loginRepository;
-        public LoginController(ICrudGeneric<LoginRequest> loginRepositoty)
+        IJwtTokenCrud _jwtTokenCrud; 
+        public LoginController(ICrudGeneric<LoginRequest> loginRepositoty, IJwtTokenCrud jwtTokenCrud)
         {
             _loginRepository = loginRepositoty;
+            _jwtTokenCrud = jwtTokenCrud;
         }
 
-        [HttpPost("getToken")]
+        [HttpPost("getTokenForUser")]
         public IActionResult Post([FromBody] LoginRequest loginRequest)
         {
             var token = "";
@@ -39,6 +43,26 @@ namespace hksAPI.Controllers
 
         }
 
+        [HttpGet("getToken")]
+        public IActionResult Get()
+        {
+            
+            var token = "";
+
+            try
+            {
+                token = _jwtTokenCrud.CreateJwtToken(); 
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex.Message);
+
+            }
+
+            return Ok(token);
+
+        }
 
     }
 

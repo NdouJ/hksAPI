@@ -1,5 +1,7 @@
 using hksAPI.Data.Repositories;
+using hksAPI.Interfaces;
 using hksAPI.Models;
+using hksAPI.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
@@ -39,6 +41,7 @@ builder.Services.AddScoped<ICrudGeneric<Purchase>, PurchaseRepository>();
 builder.Services.AddScoped<ICrudGeneric<LoginRequest>, LoginRepository>();
 builder.Services.AddScoped<ICrudGeneric<User>, UserRepository>();
 builder.Services.AddScoped<ICrudGeneric<Seller>, SellerRepository>();
+builder.Services.AddTransient<IJwtTokenCrud, JwtService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -51,6 +54,7 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+
 }
 
 app.UseHttpsRedirection();
