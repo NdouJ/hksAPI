@@ -1,6 +1,7 @@
 ﻿using hksAPI.Data.Repositories;
 using hksAPI.Models;
 using hksAPI.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Text.RegularExpressions;
@@ -40,7 +41,7 @@ namespace hksAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-
+        [Authorize]
         [HttpGet("breeders-of-dog")]
         public IActionResult GetBreedersOfDog(string dog)
         {
