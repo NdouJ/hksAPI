@@ -89,17 +89,27 @@ namespace hksAPI.Data.Repositories
 
         public void Insert(Seller entity)
         {
+
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "INSERT INTO Seller (breeder_name, contact_info, OIB) VALUES (@BreederName, @ContactInfo, @OIB)";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@BreederName", entity.BreederName);
-                command.Parameters.AddWithValue("@ContactInfo", entity.ContactInfo);
-                command.Parameters.AddWithValue("@OIB", entity.OIB);
-                connection.Open();
-                command.ExecuteNonQuery();
+                string procedureName = "AddSeller";
+
+                using (SqlCommand command = new SqlCommand(procedureName, connection))
+                {
+                    command.CommandType = System.Data.CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@BreederName", entity.BreederName);
+                    command.Parameters.AddWithValue("@ContactInfo", entity.ContactInfo);
+                    command.Parameters.AddWithValue("@OIB", entity.OIB);
+                    command.Parameters.AddWithValue("@Password", entity.TempPassword);
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
             }
         }
+
+     
+
 
         public void Update(Seller entity)
         {
