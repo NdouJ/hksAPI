@@ -11,6 +11,7 @@ using System.Text;
 
 namespace hksAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class HksController : ControllerBase

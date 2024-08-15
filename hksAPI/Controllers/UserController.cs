@@ -1,5 +1,6 @@
 ﻿using hksAPI.Data.Repositories;
 using hksAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace hksAPI.Controllers
@@ -14,7 +15,7 @@ namespace hksAPI.Controllers
         {
             _userRepository = userRepository;
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult SaveUser([FromBody] User user)
         {
@@ -28,7 +29,7 @@ namespace hksAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult DeleteUser(int id)
         {
@@ -42,7 +43,7 @@ namespace hksAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-
+        [Authorize]
         [HttpPost("update-user")]
         public IActionResult UpdateUser([FromBody] User user)
         {
@@ -56,7 +57,7 @@ namespace hksAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult GetUserById(int id)
         {

@@ -28,7 +28,7 @@ namespace hksAPI.Controllers
             }
            
         }
-
+        [Authorize]
         [HttpGet("get-by-name")]
         public IActionResult Get(string name )
         {
@@ -47,7 +47,7 @@ namespace hksAPI.Controllers
             }
             
         }
-
+        [Authorize]
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -67,7 +67,7 @@ namespace hksAPI.Controllers
             }  
 
         }
-
+        [Authorize]
         [HttpPost]
         public IActionResult Post([FromBody] Dog value)
         {
@@ -84,7 +84,7 @@ namespace hksAPI.Controllers
      
 
         }
-
+        [Authorize]
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Dog value)
         {       
@@ -107,6 +107,7 @@ namespace hksAPI.Controllers
         }
 
         // DELETE api/<UserReviewController>/5
+        [Authorize]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {

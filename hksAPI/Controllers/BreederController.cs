@@ -18,7 +18,7 @@ namespace hksAPI.Controllers
         {
             _breederRepository = breederRepository; 
         }
-
+        [Authorize]
         [HttpGet("check-oib")]
         public IActionResult CheckOib(string OIB)
         {
@@ -56,17 +56,15 @@ namespace hksAPI.Controllers
             }
         }
 
+      //  [Authorize]
         [HttpGet]
         public IActionResult GetBreederbyName(string breederName)
         {
             try
             {
-                Breeder breeder = _breederRepository.GetByName(breederName);
-                if (breeder == null)
-                {
-                    return NotFound("Breeder not found");
-                }
-                return Ok(breeder);
+              var breeders=  _breederRepository.GetAll(); 
+               
+                return Ok(breeders);
             }
             catch (Exception ex)
             {
@@ -74,6 +72,7 @@ namespace hksAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpPost("updateBreeder")]
         public IActionResult UpdateBreeder(Breeder breederUpdate)
         {
@@ -87,6 +86,9 @@ namespace hksAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+
+        [Authorize]
         [HttpPost]
         public IActionResult PostBreeder(Breeder breeder)
         {
@@ -101,6 +103,7 @@ namespace hksAPI.Controllers
             }
         }
 
+        [Authorize]
         [HttpDelete]
         public IActionResult DeleteBreeder(int  id)
         {
@@ -115,5 +118,21 @@ namespace hksAPI.Controllers
             }
         }
 
+
+        [Authorize]
+        [HttpGet("getAllBreeders")]
+        public IActionResult GetBreeders() {
+
+            try
+            {
+                IEnumerable<Breeder> breeders = _breederRepository.GetAll();
+                return Ok(breeders.ToList());
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+
+        }
     }
 }

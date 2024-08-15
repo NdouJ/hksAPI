@@ -1,11 +1,13 @@
 ﻿using hksAPI.Data.Repositories;
 using hksAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System;
 
 namespace hksAPI.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class SellerController : ControllerBase

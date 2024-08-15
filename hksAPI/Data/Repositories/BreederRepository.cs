@@ -40,7 +40,36 @@ namespace hksAPI.Data.Repositories
 
         public IEnumerable<Breeder> GetAll()
         {
-            throw new NotImplementedException();
+            List<Breeder> breeders = new List<Breeder>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                string query = @"select * from Breeder";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Breeder breeder = new Breeder
+                            {
+                                BreederName = reader["BreederName"].ToString(),
+                                BreederContact = reader["BreederContact"].ToString(),
+                                OIB = reader["OIB"].ToString(),
+                                IdBreeder = Int32.Parse(reader["IdBreeder"].ToString())
+                            };
+
+                            breeders.Add(breeder);
+                        }
+                    }
+                }
+            }
+
+            return breeders;
         }
 
         public IEnumerable<Breeder> GetAllByParametar(string parametar)
