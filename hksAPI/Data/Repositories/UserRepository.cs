@@ -1,5 +1,6 @@
 ﻿using hksAPI.Models;
 using Microsoft.Data.SqlClient;
+using System.Data;
 
 namespace hksAPI.Data.Repositories
 {
@@ -13,8 +14,23 @@ namespace hksAPI.Data.Repositories
         }
         public string CheckEntity(User entity)
         {
-            throw new NotImplementedException();
+            string result;
+
+            using (var connection = new SqlConnection(_connectionString))
+            {
+                using (var command = new SqlCommand("checkUserCredentials", connection))
+                {
+                    command.CommandType = CommandType.StoredProcedure;
+                    command.Parameters.AddWithValue("@username", entity.Username);
+                    command.Parameters.AddWithValue("@passwordHash", entity.PasswordHash);
+
+                    connection.Open();
+                    result = command.ExecuteScalar().ToString();
+                }
+            }
+            return result;
         }
+
 
         public void Delete(int userId)
         {
