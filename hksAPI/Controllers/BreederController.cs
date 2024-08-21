@@ -2,9 +2,7 @@
 using hksAPI.Models;
 using hksAPI.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.Text.RegularExpressions;
 
 namespace hksAPI.Controllers
 {
@@ -56,7 +54,7 @@ namespace hksAPI.Controllers
             }
         }
 
-      //  [Authorize]
+       [Authorize]
         [HttpGet]
         public IActionResult GetBreederbyName(string breederName)
         {

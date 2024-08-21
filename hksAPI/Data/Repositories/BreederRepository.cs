@@ -120,7 +120,7 @@ namespace hksAPI.Data.Repositories
 
         public Breeder GetByName(string name)
         {
-            Breeder  breeder = new();    
+            Breeder breeder = new();
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
                 connection.Open();

@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace hksAPI.Data.Repositories
+﻿namespace hksAPI.Data.Repositories
 {
     public interface ICrudGeneric<T>
     {

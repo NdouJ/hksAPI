@@ -1,7 +1,6 @@
 ﻿using hksAPI.Data.Repositories;
 using hksAPI.Models;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace hksAPI.Controllers

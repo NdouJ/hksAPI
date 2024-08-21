@@ -1,12 +1,7 @@
 ﻿using hksAPI.Data.Repositories;
 using hksAPI.Interfaces;
 using hksAPI.Models;
-using hksAPI.Services;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Data.SqlClient;
-using Microsoft.IdentityModel.Tokens;
-using System.IdentityModel.Tokens.Jwt;
-using System.Text;
 
 namespace hksAPI.Controllers
 {

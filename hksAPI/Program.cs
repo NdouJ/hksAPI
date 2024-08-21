@@ -37,10 +37,11 @@ builder.Services.AddAuthorization();
 builder.Services.AddScoped<ICrudGeneric<Breeder>, BreederRepository>();
 builder.Services.AddScoped<ICrudGeneric<UserReview>, UserReviewRepository>();
 builder.Services.AddScoped<ICrudGeneric<Dog>, DogRepository>();
-builder.Services.AddScoped<ICrudGeneric<Purchase>, PurchaseRepository>();
+builder.Services.AddScoped<ICrudGeneric<Donation>, DonationRepository>();
 builder.Services.AddScoped<ICrudGeneric<LoginRequest>, LoginRepository>();
 builder.Services.AddScoped<ICrudGeneric<User>, UserRepository>();
 builder.Services.AddScoped<ICrudGeneric<Seller>, SellerRepository>();
+builder.Services.AddScoped<ICrudGeneric<PackInfo>, PackInfoRepository>();
 builder.Services.AddTransient<IJwtTokenCrud, JwtService>();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

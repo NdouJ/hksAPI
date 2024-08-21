@@ -1,5 +1,4 @@
 ﻿using hksAPI.Models;
-using hksAPI.Interfaces;
 using Microsoft.Data.SqlClient;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
