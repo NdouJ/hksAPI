@@ -84,7 +84,7 @@ namespace hksAPI.Data.Repositories
                 using (SqlCommand command = new SqlCommand(storedProcedure, connection))
                 {
                     command.CommandType = CommandType.StoredProcedure;
-                    command.Parameters.AddWithValue("@seller_contact_info", entity.SellerContectInfo);
+                    command.Parameters.AddWithValue("@seller_contact_info", entity.SellerContactInfo);
                     command.Parameters.AddWithValue("@description", entity.Description);
                     command.Parameters.AddWithValue("@price", entity.Price);
                     connection.Open();
