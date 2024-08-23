@@ -2,7 +2,7 @@
 {
     public class PackInfo
     {
-        public string SellerContectInfo  { get; set; }
+        public string SellerContactInfo  { get; set; }
         public string Dog { get; set; }
         public DateTime BirthDate { get; set; }
         public int MaleCount  { get; set; }

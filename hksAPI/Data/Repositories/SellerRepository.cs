@@ -2,6 +2,7 @@
 using Microsoft.Data.SqlClient;
 
 
+
 namespace hksAPI.Data.Repositories
 {
     public class SellerRepository : ICrudGeneric<Seller>
@@ -100,7 +101,7 @@ namespace hksAPI.Data.Repositories
                     command.Parameters.AddWithValue("@BreederName", entity.BreederName);
                     command.Parameters.AddWithValue("@ContactInfo", entity.ContactInfo);
                     command.Parameters.AddWithValue("@OIB", entity.OIB);
-                    command.Parameters.AddWithValue("@Password", entity.TempPassword);
+                    command.Parameters.AddWithValue("@Password", hksAPI.Services.PasswordHasher.HashPassword(entity.TempPassword));
 
                     connection.Open();
                     command.ExecuteNonQuery();

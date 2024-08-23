@@ -75,8 +75,7 @@ namespace hksAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
-
-
+       
         [HttpPost("checkUser")]
         public IActionResult CheckUser([FromBody] User user)
         {

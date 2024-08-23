@@ -22,8 +22,8 @@ namespace hksAPI.Data.Repositories
                 {
                     command.CommandType = CommandType.StoredProcedure;
                     command.Parameters.AddWithValue("@username", entity.Username);
-                    command.Parameters.AddWithValue("@passwordHash", entity.PasswordHash);
-
+                    command.Parameters.AddWithValue("@roleId", entity.RoleId);
+                    command.Parameters.AddWithValue("@passwordHash", hksAPI.Services.PasswordHasher.HashPassword(entity.PasswordHash));                    
                     connection.Open();
                     result = command.ExecuteScalar().ToString();
                 }
@@ -82,6 +82,7 @@ namespace hksAPI.Data.Repositories
 
         public User GetByName(string name)
         {
+            //endpoint da provjeri dali user sa user role 3 i name username postoji
             throw new NotImplementedException();
         }
 
@@ -89,10 +90,15 @@ namespace hksAPI.Data.Repositories
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "INSERT INTO [User] (username, passwordHash, roleId) VALUES (@Username, @PasswordHash, @RoleId)";
+                string query = @"
+                    IF NOT EXISTS (SELECT 1 FROM [User] WHERE username = @Username)
+                    BEGIN
+                        INSERT INTO [User] (username, passwordHash, roleId) VALUES (@Username, @PasswordHash, @RoleId);
+                    END";
+
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Username", user.Username);
-                command.Parameters.AddWithValue("@PasswordHash", user.PasswordHash);
+                command.Parameters.AddWithValue("@PasswordHash", hksAPI.Services.PasswordHasher.HashPassword(user.PasswordHash));
                 command.Parameters.AddWithValue("@RoleId", user.RoleId);
 
                 connection.Open();
@@ -107,7 +113,7 @@ namespace hksAPI.Data.Repositories
                 string query = "UPDATE [User] SET username = @Username, passwordHash = @PasswordHash, roleId = @RoleId WHERE idUser = @UserId";
                 SqlCommand command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Username", user.Username);
-                command.Parameters.AddWithValue("@PasswordHash", user.PasswordHash);
+                command.Parameters.AddWithValue("@PasswordHash", hksAPI.Services.PasswordHasher.HashPassword(user.PasswordHash));
                 command.Parameters.AddWithValue("@RoleId", user.RoleId);
                 command.Parameters.AddWithValue("@UserId", user.Id);
 
