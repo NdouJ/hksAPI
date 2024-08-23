@@ -82,8 +82,32 @@ namespace hksAPI.Data.Repositories
 
         public User GetByName(string name)
         {
-            //endpoint da provjeri dali user sa user role 3 i name username postoji
-            throw new NotImplementedException();
+            string query = "SELECT * FROM [User] u WHERE u.username = @username AND u.roleId = 3";
+            User user = null;
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.Add(new SqlParameter("@username", SqlDbType.NVarChar, 50)).Value = name;
+
+                    connection.Open();
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            user = new User
+                            {
+                                Id = (int)reader["idUser"],
+                        
+                            };
+                        }
+                    }
+                }
+
+            }
+            return user;
         }
 
         public void Insert(User user)

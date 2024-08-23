@@ -1,5 +1,7 @@
 ﻿using hksAPI.Models;
 using Microsoft.Data.SqlClient;
+using Org.BouncyCastle.Utilities;
+using System.Data;
 
 namespace hksAPI.Data.Repositories
 {
@@ -61,12 +63,49 @@ namespace hksAPI.Data.Repositories
             return reviews;
         }
 
-        public IEnumerable<UserReview> GetAllByParametar(string parametar)
+        public IEnumerable<UserReview> GetAllByParametar(string breederID)
         {
-            throw new NotImplementedException();
-        }
+            int idBreeder = int.Parse(breederID);
 
-        public UserReview GetById(int id)
+            var reviews = new List<UserReview>();
+
+            using (SqlConnection connection = new SqlConnection(_connectionString))
+            {
+                connection.Open();
+
+                string query = @"
+                select u.BreederId, u.Grade, u.IdUserReview, u.Review, u.UserId 
+                from UserReview u 
+                inner join Breeder b on b.IdBreeder = u.BreederId
+                where b.IdBreeder = @idBreeder";
+
+                using (SqlCommand command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.Add(new SqlParameter("@idBreeder", SqlDbType.Int) { Value = idBreeder });
+
+                    using (SqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            var review = new UserReview
+                            {
+                                BreederId = reader.GetInt32(0),
+                                Grade = int.Parse(reader.GetString(1)),
+                                IdUserReview = reader.GetInt32(2),
+                                Review = reader.GetString(3),
+                                UserId = reader.GetInt32(4)
+                            };
+                            reviews.Add(review);
+                        }
+                    }
+                }
+            }
+
+            return reviews;
+        }
+    
+
+    public UserReview GetById(int id)
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {

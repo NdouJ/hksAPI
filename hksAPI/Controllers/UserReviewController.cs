@@ -49,6 +49,24 @@ namespace hksAPI.Controllers
             }
         }
 
+        [HttpGet("GetUserReviewByBreederId")]
+        public IActionResult GetUserReviewByBreederId(int id)
+        {
+            try
+            {
+                var review = _userReviewRepository.GetAllByParametar(id.ToString());
+                if (review == null)
+                {
+                    return NotFound();
+                }
+                return Ok(review);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
         [HttpPost]
         public IActionResult CreateReview([FromBody] UserReview value)
         {

@@ -2,6 +2,7 @@
 using hksAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace hksAPI.Controllers
 {
@@ -98,5 +99,28 @@ namespace hksAPI.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
+
+        [HttpGet("getOathUserByUsername")]
+        public IActionResult GetOathUserbyUsername(string name)
+        {
+            try
+            {
+                User user = _userRepository.GetByName(name);
+
+                if (user!=null)
+                {
+                    return Ok(user);
+
+                }
+                else
+                {
+                    return NotFound(); 
+                }
+        }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+    }
+}
     }
 }

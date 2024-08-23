@@ -54,19 +54,22 @@ namespace hksAPI.Controllers
             }
         }
 
-       [Authorize]
-        [HttpGet]
-        public IActionResult GetBreederbyName(string breederName)
+
+        //[Authorize]
+        [HttpGet("getBreederByName")]
+        public IActionResult GetBreederByName(string name)
         {
-            try
             {
-              var breeders=  _breederRepository.GetAll(); 
-               
-                return Ok(breeders);
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                try
+                {
+                    var breeder = _breederRepository.GetByName(name);
+
+                    return Ok(breeder);
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+                }
             }
         }
 

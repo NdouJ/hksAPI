@@ -12,10 +12,12 @@ namespace hksAPI.Controllers
 
         ICrudGeneric<LoginRequest> _loginRepository;
         IJwtTokenCrud _jwtTokenCrud; 
-        public LoginController(ICrudGeneric<LoginRequest> loginRepositoty, IJwtTokenCrud jwtTokenCrud)
+        IConfiguration _configuration;
+        public LoginController(ICrudGeneric<LoginRequest> loginRepositoty, IJwtTokenCrud jwtTokenCrud, IConfiguration configuration)
         {
             _loginRepository = loginRepositoty;
             _jwtTokenCrud = jwtTokenCrud;
+            _configuration = configuration;
         }
 
         [HttpPost("getTokenForUser")]
@@ -39,8 +41,12 @@ namespace hksAPI.Controllers
         }
 
         [HttpGet("getToken")]
-        public IActionResult Get()
+        public IActionResult Get(string apiKey)
         {
+            if (apiKey == null || !apiKey.Equals(_configuration["apiKey"]))
+            {
+                return Forbid();
+            }
             
             var token = "";
 

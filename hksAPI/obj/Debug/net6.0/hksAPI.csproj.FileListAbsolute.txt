@@ -96,13 +96,6 @@ C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\runtimes\win\lib\n
 C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\Users\jelena.ndou\Downloads\hksAPI\hksAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
-C:\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.csproj.AssemblyReference.cache
-C:\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.GeneratedMSBuildEditorConfig.editorconfig
-C:\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.AssemblyInfoInputs.cache
-C:\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.AssemblyInfo.cs
-C:\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.csproj.CoreCompileInputs.cache
-C:\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.MvcApplicationPartsAssemblyInfo.cs
-C:\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\hksAPI\hksAPI\bin\Debug\net6.0\appsettings.Development.json
 C:\hksAPI\hksAPI\bin\Debug\net6.0\appsettings.json
 C:\hksAPI\hksAPI\bin\Debug\net6.0\hksAPI.exe
@@ -179,6 +172,13 @@ C:\hksAPI\hksAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Drawing.Common.
 C:\hksAPI\hksAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Runtime.Caching.dll
 C:\hksAPI\hksAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Security.Cryptography.ProtectedData.dll
 C:\hksAPI\hksAPI\bin\Debug\net6.0\runtimes\win\lib\net6.0\System.Windows.Extensions.dll
+C:\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.csproj.AssemblyReference.cache
+C:\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.GeneratedMSBuildEditorConfig.editorconfig
+C:\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.AssemblyInfoInputs.cache
+C:\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.AssemblyInfo.cs
+C:\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.csproj.CoreCompileInputs.cache
+C:\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\hksAPI\hksAPI\obj\Debug\net6.0\hksAPI.MvcApplicationPartsAssemblyInfo.cache
 C:\hksAPI\hksAPI\obj\Debug\net6.0\staticwebassets\msbuild.hksAPI.Microsoft.AspNetCore.StaticWebAssets.props
 C:\hksAPI\hksAPI\obj\Debug\net6.0\staticwebassets\msbuild.build.hksAPI.props
 C:\hksAPI\hksAPI\obj\Debug\net6.0\staticwebassets\msbuild.buildMultiTargeting.hksAPI.props
