@@ -90,7 +90,7 @@ namespace hksAPI.Data.Repositories
                             var review = new UserReview
                             {
                                 BreederId = reader.GetInt32(0),
-                                Grade = int.Parse(reader.GetString(1)),
+                                Grade = reader.GetInt32(1),
                                 IdUserReview = reader.GetInt32(2),
                                 Review = reader.GetString(3),
                                 UserId = reader.GetInt32(4)
