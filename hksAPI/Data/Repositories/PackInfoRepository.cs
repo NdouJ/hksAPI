@@ -60,7 +60,9 @@ namespace hksAPI.Data.Repositories
                                 BirthDate = Convert.ToDateTime(reader["BirtDate"]),
                                 MaleCount = Convert.ToInt32(reader["Male"]),
                                 FMaleCount = Convert.ToInt32(reader["FMale"]),
+                                Description = reader["PackDescription"].ToString()
                             };
+                            packInfo.SellerContactInfo = name;
                         }
                     }
                 }
