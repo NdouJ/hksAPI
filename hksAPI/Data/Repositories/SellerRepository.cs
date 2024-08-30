@@ -23,13 +23,20 @@ namespace hksAPI.Data.Repositories
         {
             using (SqlConnection connection = new SqlConnection(_connectionString))
             {
-                string query = "DELETE FROM Seller WHERE idSeller = @Id";
-                SqlCommand command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@Id", id);
+      
+                string updateQuery = "UPDATE Pack SET Price = NULL, SellerID = NULL, PackDescription = NULL WHERE SellerID = @Id";
+                SqlCommand updateCommand = new SqlCommand(updateQuery, connection);
+                updateCommand.Parameters.AddWithValue("@Id", id);
+                string deleteQuery = "DELETE FROM Seller WHERE idSeller = @Id";
+                SqlCommand deleteCommand = new SqlCommand(deleteQuery, connection);
+                deleteCommand.Parameters.AddWithValue("@Id", id);
                 connection.Open();
-                command.ExecuteNonQuery();
+                updateCommand.ExecuteNonQuery();
+                deleteCommand.ExecuteNonQuery();
             }
         }
+
+
 
         public IEnumerable<Seller> GetAll()
         {

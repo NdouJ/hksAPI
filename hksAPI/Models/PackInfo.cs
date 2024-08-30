@@ -8,6 +8,6 @@
         public int MaleCount  { get; set; }
         public int FMaleCount  { get; set; }
         public string Description  { get; set; }
-        public Double Price { get; set; }
+        public Decimal Price { get; set; }
     }
 }

@@ -61,7 +61,7 @@ namespace hksAPI.Data.Repositories
                                 MaleCount = Convert.ToInt32(reader["Male"]),
                                 FMaleCount = Convert.ToInt32(reader["FMale"]),
                                 Description = reader["PackDescription"].ToString(),
-                                Price = Convert.ToDouble( reader["Price"])
+                                Price = Convert.ToDecimal( reader["Price"])
                             };
                             packInfo.SellerContactInfo = name;
                         }
